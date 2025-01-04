@@ -1,0 +1,58 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/demo_community
+    username: root
+    password: 1234 # "Please enter your password"
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: false
+        default_batch_fetch_size: 100
+  security:
+    oauth2:
+      authorizationserver:
+        client:
+          demo-community:
+            registration:
+              authorization-grant-types: authorization_code
+              client-authentication-methods: client_secret_basic
+              client-id: demo-community
+              client-secret: "iRGBGFUnnc2mw8dhFU1mhxiea-NDAP4hd1UpnOG22SY"
+              post-logout-redirect-uris: http://localhost:8080
+              redirect-uris: http://localhost:8080/login/oauth2/code/demo-community
+              scopes: openid,read,write
+            require-authorization-consent: false
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+logging:
+  level:
+    root: info
+    org:
+      springframework:
+        security: info
+
+jwt:
+  secret: "kA5uCYyBWfxmjry64OcdxoGsZeTUoEBhFo+Hk7AGUep6ApcfHWk2ZQ0OsCJ8qQDCp1Bx1PAlbbztBDjyljEDNg=="
+  expiration-time: 864_000_000 # 10 days in milliseconds
+
+board:
+  attachment:
+    root-dir: ${user.dir}/tmp/uploads
+
